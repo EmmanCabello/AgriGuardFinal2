@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriGuard - Agricultural Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="chats.css">
+</head>
+
+<body class="chats-body">
+    <header>
+        <div class="header-branding">
+            <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+                <img class="back-from-messages" id="back-btn" src="" alt="AgriGuard logo">
+                <img class="message-logo" src="message_ic.png" alt="AgriGuard logo">
+                <div>
+                    <h1>Messages</h1>
+                </div>
+            </div>
+            <div class="header-actions" id="headers-actions">
+            </div>
+        </div>
+    </header>
+
+    <div class="chats-container">
+
+        <div class="chat-room-section" id="chat-rooms"></div>
+        <!-- LEFT: PRODUCT -->
+        <div class="product-panel" id="product-panel">
+            <img class="product-img" src="" id="product-img" />
+            <div class="product-name" id="product-name"></div>
+            <div class="product-desc" id="product-desc"></div>
+            <div class="product-price" id="product-price"></div>
+        </div>
+
+        <!-- RIGHT: CHAT -->
+        <div class="chat-section">
+
+            <div id="chat-messages"></div>
+
+            <div class="chat-input" id="chat-input">
+                <input type="text" placeholder="Type a message..." />
+                <button id="send-btn">Send</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script type="module" src="chat.js"></script>
+</body>
+
+
+</html>

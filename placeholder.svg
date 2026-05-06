@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <rect width="640" height="360" rx="24" ry="24" fill="#eef5ef" stroke="#c5e2d1" stroke-width="4"/>
+  <g fill="#8ebf96">
+    <circle cx="120" cy="120" r="32"/>
+    <path d="M140 130 L210 200 L300 110 L400 210 L520 90 L580 150" stroke="#8ebf96" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="50%" y="85%" text-anchor="middle" fill="#6b8f71" font-family="Segoe UI, sans-serif" font-size="32">Image placeholder</text>
+</svg>

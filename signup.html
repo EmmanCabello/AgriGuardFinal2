@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - AgriGuard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-branding">
+            <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+                <img class="site-logo" src="logo.svg" alt="AgriGuard logo">
+                <div>
+                    <h1>AgriGuard</h1>
+                    <p>Create your account to start managing farm data.</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a class="button button-outline" href="index.html">Home</a>
+                <a class="button button-primary" href="login.html">Login</a>
+            </div>
+        </div>
+    </header>
+    <main class="auth-page">
+        <section class="auth-card">
+            <h2>Register Now</h2>
+            <p>Join AgriGuard to monitor crops, sensors, and marketplace listings in one place.</p>
+            <form id="signup-form">
+                <label>
+                    <span>Full Name</span>
+                    <input id="uName" type="text" placeholder="Your full name" required>
+                </label>
+
+                <label>
+                    <span>Email address</span>
+                    <input id="email" type="email" placeholder="name@example.com" required>
+                </label>
+                
+                <fieldset class="role-selection">
+                    <legend>Account Type</legend>
+                    <label><input type="radio" name="account-role" value="buyer" checked> Buyer</label>
+                    <label><input type="radio" name="account-role" value="seller"> Seller</label>
+                </fieldset>
+
+                <label>
+                    <span>Password</span>
+                    <input id="pword" type="password" placeholder="Create a password" required>
+                </label>
+
+                <label>
+                    <span>Confirm Password</span>
+                    <input id="cPWord" type="password" placeholder="Confirm password" required>
+                </label>
+                <button type="submit" id="submitBtn">Sign Up</button>
+            </form>
+            <div class="form-footer">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+        const supabaseUrl = 'https://txjmluwbwvwzokcnelrl.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4am1sdXdid3Z3em9rY25lbHJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNjE0OTIsImV4cCI6MjA5MjgzNzQ5Mn0.rFaInFV0_fLLuiIm9uPdrvnGYZJ5FMYhE6KnNhKMYYU'
+        const form = document.getElementById('signup-form');
+        const supabaseClient = createClient(supabaseUrl, supabaseKey)
+
+        async function validatePassAndEmail(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById("submitBtn");
+            submitBtn.disabled = true;
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pword').value;
+            const confirmPassword = document.getElementById('cPWord').value;
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                submitBtn.disabled = false;
+                return;
+            }
+
+            if (!passwordRegex.test(password)) {
+                alert("Password must be 8+ chars with uppercase, lowercase, number, and symbol.");
+                submitBtn.disabled = false;
+                return;
+            }
+
+            await signupUser();
+        }
+
+        async function signupUser() {
+            const type = document.querySelector('input[name="account-role"]:checked').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pword').value;
+            const name = document.getElementById('uName').value;
+
+            const { data, error } = await supabaseClient.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        display_name: name,
+                        type: type
+                    }
+                }
+            });
+
+            if (error) {
+                document.getElementById("submitBtn").disabled = false;
+                if (error.message.includes("already registered")) {
+                    alert("already exists")
+                } else {
+                    console.log(error.message)
+                }
+                return;
+            }
+
+            const user = data.user;
+
+            if (!user) {
+                document.getElementById("submitBtn").disabled = false;
+                return;
+            }
+
+            const { data: userData, error: userError } = await supabaseClient.auth.getUser();
+
+            if (userError) {
+                console.error(userError);
+            } else {
+                const user = userData.user;
+
+                if (!user) {
+                    console.log("No user logged in");
+                    return;
+                }
+                console.log(user);
+            }
+            const passUserData = { userId: user.id, email: email };
+            localStorage.setItem("userData", JSON.stringify(passUserData));
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+        }
+
+        form.addEventListener("submit", validatePassAndEmail);
+    </script>
+</body>
+
+</html>

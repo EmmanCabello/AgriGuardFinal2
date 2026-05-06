@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="transform.xsl"?>
+<agriData>
+    <weather>
+        <date>2023-10-01</date>
+        <temperature>25°C</temperature>
+        <humidity>60%</humidity>
+        <rainfall>0mm</rainfall>
+    </weather>
+    <weather>
+        <date>2023-10-02</date>
+        <temperature>22°C</temperature>
+        <humidity>65%</humidity>
+        <rainfall>5mm</rainfall>
+    </weather>
+    <crop>
+        <name>Wheat</name>
+        <status>Healthy</status>
+        <yield>Expected 50 tons</yield>
+    </crop>
+    <crop>
+        <name>Corn</name>
+        <status>Needs Water</status>
+        <yield>Expected 40 tons</yield>
+    </crop>
+    <weather>
+        <date>2023-10-03</date>
+        <temperature>28°C</temperature>
+        <humidity>55%</humidity>
+        <rainfall>2mm</rainfall>
+    </weather>
+    <weather>
+        <date>2023-10-04</date>
+        <temperature>24°C</temperature>
+        <humidity>70%</humidity>
+        <rainfall>10mm</rainfall>
+    </weather>
+    <weather>
+        <date>2023-10-05</date>
+        <temperature>26°C</temperature>
+        <humidity>58%</humidity>
+        <rainfall>0mm</rainfall>
+    </weather>
+    <crop>
+        <name>Rice</name>
+        <status>Healthy</status>
+        <yield>Expected 60 tons</yield>
+    </crop>
+    <alert>
+        <type>Info</type>
+        <message>Scheduled irrigation completed</message>
+        <date>2023-10-04</date>
+    </alert>
+    <alert>
+        <type>Warning</type>
+        <message>High temperature alert for wheat field</message>
+        <date>2023-10-05</date>
+    </alert>
+    <weatherSensor>
+        <id>WS001</id>
+        <location>Field A</location>
+        <temperature>25°C</temperature>
+        <humidity>65%</humidity>
+        <windSpeed>12 km/h</windSpeed>
+        <lastUpdate>2023-10-05T14:30:00</lastUpdate>
+    </weatherSensor>
+    <weatherSensor>
+        <id>WS002</id>
+        <location>Field B</location>
+        <temperature>26°C</temperature>
+        <humidity>58%</humidity>
+        <windSpeed>8 km/h</windSpeed>
+        <lastUpdate>2023-10-05T14:28:00</lastUpdate>
+    </weatherSensor>
+    <pestSensor>
+        <id>PS001</id>
+        <location>Field A</location>
+        <pestType>Aphids</pestType>
+        <detectionLevel>Low</detectionLevel>
+        <status>Normal</status>
+        <lastUpdate>2023-10-05T14:25:00</lastUpdate>
+    </pestSensor>
+    <pestSensor>
+        <id>PS002</id>
+        <location>Field B</location>
+        <pestType>Corn Borer</pestType>
+        <detectionLevel>Medium</detectionLevel>
+        <status>Warning</status>
+        <lastUpdate>2023-10-05T14:20:00</lastUpdate>
+    </pestSensor>
+    <marketplaceItem>
+        <name>Wheat</name>
+        <description>Premium quality wheat grains for sale</description>
+        <price>1450.00</price>
+        <unit>kg</unit>
+        <seller>FarmFresh Co.</seller>
+    </marketplaceItem>
+    <marketplaceItem>
+        <name>Corn</name>
+        <description>Fresh corn kernels ready for market</description>
+        <price>1044.00</price>
+        <unit>kg</unit>
+        <seller>Golden Harvest</seller>
+    </marketplaceItem>
+    <marketplaceItem>
+        <name>Rice</name>
+        <description>High-quality rice grains from local farms</description>
+        <price>1276.00</price>
+        <unit>kg</unit>
+        <seller>RiceLand Agri</seller>
+    </marketplaceItem>
+</agriData>

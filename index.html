@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriGuard - Agricultural Monitoring System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-branding">
+            <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+                <img class="site-logo" src="logo.svg" alt="AgriGuard logo">
+                <div>
+                    <h1>AgriGuard</h1>
+                    <p>Agricultural Monitoring System</p>
+                </div>
+            </div>
+            <div class="header-actions" id="headers-actions">
+            </div>
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#weather">Weather Data</a></li>
+            <li><a href="#crops">Crop Status</a></li>
+            <li><a href="#sensors">Sensors</a></li>
+            <li><a href="#marketplace">Marketplace</a></li>
+            <li><a href="#alerts">Alerts</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="dashboard" class="hero-section">
+            <div class="hero-copy">
+                <h2>Dashboard</h2>
+                <p>Welcome to AgriGuard. Monitor your agricultural data in a modern interface designed for farmers and
+                    agribusiness teams.</p>
+                <p><a class="button button-primary" href="data.xml">Explore Agricultural Data</a></p>
+            </div>
+            <div class="hero-grid">
+                <img class="hero-image" src="placeholder.svg" alt="Dashboard illustration">
+                <div class="hero-card">
+                    <h3>Live Weather Insights</h3>
+                    <p>Track temperature, humidity, and rainfall trends across your fields.</p>
+                </div>
+                <div class="hero-card">
+                    <h3>Crop Health Overview</h3>
+                    <p>See crop performance at a glance and identify areas that need attention.</p>
+                </div>
+                <div class="hero-card">
+                    <h3>Marketplace Access</h3>
+                    <p>Buy and sell seeds, produce, and equipment directly from the dashboard.</p>
+                </div>
+            </div>
+        </section>
+        <section id="weather">
+            <h2>Weather Data</h2>
+            <p>Current weather conditions.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Rainfall</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+        <section id="crops">
+            <h2>Crop Status</h2>
+            <p>Status of crops.</p>
+            <ul id="cropstatuslist">
+            </ul>
+        </section>
+        <section id="sensors">
+            <h2>Sensor Readings</h2>
+            <p>Real-time sensor data from weather and pest monitoring devices.</p>
+            <h3>Weather Sensors</h3>
+            <table id="weatherSensors">
+                <thead>
+                    <tr>
+                        <th>Sensor ID</th>
+                        <th>Location</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Wind Speed</th>
+                        <th>Last Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h3>Pest Sensors</h3>
+            <table id="pestsensor">
+                <thead>
+                    <tr>
+                        <th>Sensor ID</th>
+                        <th>Location</th>
+                        <th>Pest Type</th>
+                        <th>Detection Level</th>
+                        <th>Status</th>
+                        <th>Last Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+        <section id="marketplace">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h2>Marketplace</h2>
+                <img id="chats" src="message_ic.png" alt="Chats Icon"
+                    style="width:50px; height:50px; cursor:pointer;">
+                </div>
+                <p>Buy and sell agricultural products and equipment.</p>
+                <h3>Available Products</h3>
+                <div class="market-search-bar">
+                    <input id="market-search" type="search" placeholder="Search products by name or description..."
+                        autocomplete="off">
+                </div>
+                <div class="marketplace-grid" id="market_items">
+
+                </div>
+
+                <div class="marketplace-grid" id="market_items">
+
+                </div>
+
+                <div id="edit-panel" class="chat-panel hidden">
+                    <div class="chat-header">
+                        <div>
+                            <h4>Edit Product</h4>
+                            <p class="chat-meta">Update name, description, price, location, and image.</p>
+                        </div>
+                        <button type="button" id="close-edit" class="button button-outline">Close</button>
+                    </div>
+                    <form id="edit-form" class="chat-form">
+                        <input id="edit-name" type="text" placeholder="Product name" required>
+                        <input id="edit-description" type="text" placeholder="Description" required>
+                        <input id="edit-price" type="number" placeholder="Price" step="0.01" required>
+                        <input id="edit-location" type="text" placeholder="Location" required>
+                        <input id="edit-image-input" type="file" accept="image/*">
+                        <input id="edit-product-id" type="hidden">
+                        <div id="edit-image-preview" style="display:none; margin-top:10px; text-align:center;">
+                            <img id="edit-current-image" src="" alt="Current product image"
+                                style="max-width:100%; border-radius:12px; margin-bottom:10px;" />
+                        </div>
+                        <button type="submit" class="button button-primary">Save</button>
+                    </form>
+                </div>
+
+
+                <form id="sell-form" class="sell-form" enctype="multipart/form-data">
+                    <h3>Sell Your Products</h3>
+                    <input id="product-name" type="text" placeholder="Product Name" required>
+                    <input id="product-description" type="text" placeholder="Description" required>
+                    <input id="product-price" type="number" placeholder="Price" step="0.01" required>
+                    <input id="product-quantity" type="number" placeholder="Quantity" required>
+                    <input id="product-location" type="text" placeholder="Location" required>
+
+                    <input id="product-image-input" type="file" accept="image/*" required>
+
+                    <div id="file-preview" style="display:none; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+                        <span id="file-name"></span>
+                        <button type="button" id="remove-file-button">Remove file</button>
+                    </div>
+
+                    <button id="submit-product" type="submit">List Product</button>
+                </form>
+        </section>
+        <section id="alerts">
+            <h2>Alerts</h2>
+            <p>System alerts.</p>
+            <ul id="alertlist">
+
+            </ul>
+            <div class="alert info" id="loadAlertInfo">
+                <strong>Info</strong>: Loading current alerts for Padre Garcia...
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 AgriGuard. All rights reserved.</p>
+    </footer>
+
+
+    // Database Functions
+    <script type="module" src="index.js">
+
+    </script>
+</body>
+
+</html>

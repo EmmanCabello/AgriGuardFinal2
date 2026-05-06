@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AgriGuard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-branding">
+            <div style="display:flex; align-items:center; gap:0.8rem; flex-wrap:wrap;">
+                <img class="site-logo" src="logo.svg" alt="AgriGuard logo">
+                <div>
+                    <h1>AgriGuard</h1>
+                    <p>Secure login for your monitoring dashboard</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a class="button button-outline" href="index.html">Home</a>
+                <a class="button button-primary" href="signup.html">Sign Up</a>
+            </div>
+        </div>
+    </header>
+    <main class="auth-page">
+        <section class="auth-card">
+            <h2>Welcome Back</h2>
+            <p>Log in to access your farm analytics, weather updates, and marketplace tools.</p>
+            <form id="login-form">
+                <label>
+                    <span>Email address</span>
+                    <input id="email" type="email" placeholder="name@example.com" required>
+                </label>
+
+                <label>
+                    <span>Password</span>
+                    <input id="pword" type="password" placeholder="Enter your password" required>
+                </label>
+                <button type="submit">Login</button>
+            </form>
+            <div class="form-footer">
+                <p>Don’t have an account? <a href="signup.html">Create one</a></p>
+            </div>
+        </section>
+    </main>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+        const supabaseUrl = 'https://txjmluwbwvwzokcnelrl.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4am1sdXdid3Z3em9rY25lbHJsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyNjE0OTIsImV4cCI6MjA5MjgzNzQ5Mn0.rFaInFV0_fLLuiIm9uPdrvnGYZJ5FMYhE6KnNhKMYYU'
+        const form = document.getElementById('login-form');
+        const supabase = createClient(supabaseUrl, supabaseKey)
+
+        //check if user exists
+        async function checkUserSession() {
+            const { data, error } = await supabase.auth.getSession();
+            const session = data?.session;
+
+            if (!session) return;
+
+            const user = session.user;
+            console.log("email:", user.email, user.id);
+
+            // If email not verified
+            if (!user.email_confirmed_at) {
+
+                const { error: resendError } = await supabase.auth.resend({
+                    type: 'signup',
+                    email: user.email, // ✅ FIXED
+                });
+
+                if (resendError) {
+                    console.error("Error resending OTP:", resendError.message);
+                    alert("Could not resend the code: " + resendError.message);
+                    return;
+                }
+
+                window.location.href = "UserVerificationPage.html";
+                return;
+            }
+
+            console.log("Session valid → redirecting");
+            window.location.href = "index.html";
+        }
+
+        async function logInUser(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pword').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) {
+                alert("Login failed: " + error.message);
+                return;
+            }
+
+            alert("Login successful!");
+            window.location.href = "index.html";
+        }
+        form.addEventListener('submit', logInUser);
+    </script>
+</body>
+
+</html>
