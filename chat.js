@@ -179,6 +179,7 @@ async function createChatRoom(productId, buyerId, sellerId) {
         console.error(error);
         return
     }
+    await retrieveChatRooms()
     localStorage.removeItem('selectedChat')
 }
 
